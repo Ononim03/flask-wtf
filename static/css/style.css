@@ -2,3 +2,10 @@ h4 {
     color: #d22e3a;
     margin-left:20px
 }
+.img {
+    background-image: url('../img/emblem.png');
+    background-repeat: no-repeat;
+    padding-left: 150px;
+    width: 150px;
+    height: 50px;
+}

@@ -1,4 +1,7 @@
 from flask import Flask, render_template, url_for
+from werkzeug.utils import redirect
+
+from forms.loginform import LoginForm
 
 app = Flask(__name__)
 
@@ -47,6 +50,15 @@ def answer():
                            motivation=answers_dict['motivation'],
                            ready=answers_dict['ready'],
                            css_file=answers_dict['css_file'])
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('login.html', title='Авторизация', form=form,
+                           image=url_for('static', filename='img/emblem.png'))
 
 
 if __name__ == '__main__':
