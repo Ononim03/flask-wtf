@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
@@ -24,6 +24,29 @@ def training(prof):
 @app.route('/list_prof/<type>')
 def list_prof(type):
     return render_template('list.html', type=type, list=professions)
+
+
+@app.route('/answer')
+@app.route('/auto_answer')
+def answer():
+    answers_dict = {'title': 'Анкета на Марс',
+                    'surname': 'Зинатуллин',
+                    'name': 'Тимур',
+                    'education': 'Школьное неполное',
+                    'profession': 'Школьник',
+                    'sex': 'male',
+                    'motivation': '110 score',
+                    'ready': True,
+                    'css_file': url_for('static', filename='css/style.css')}
+    return render_template('auto_answer.html', title=answers_dict['title'],
+                           surname=answers_dict['surname'],
+                           name=answers_dict['name'],
+                           education=answers_dict['education'],
+                           profession=answers_dict['profession'],
+                           sex=answers_dict['sex'],
+                           motivation=answers_dict['motivation'],
+                           ready=answers_dict['ready'],
+                           css_file=answers_dict['css_file'])
 
 
 if __name__ == '__main__':
