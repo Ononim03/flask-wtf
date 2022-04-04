@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for
+from PIL import Image
+from flask import Flask, render_template, url_for, request
 from werkzeug.utils import redirect
 
 from forms.loginform import LoginForm
@@ -92,6 +93,19 @@ def choice(choice):
 @app.route('/results/<name>/<int:level>/<float:rating>')
 def results(name, level, rating):
     return render_template('results.html', name=name, level=level, rating=rating)
+
+
+@app.route('/load_photo', methods=['POST', 'GET'])
+def load_photo():
+    if request.method == 'GET':
+        return render_template('load_photo_1.html', path=url_for('static', filename='img/user_image.png'),
+                               css=url_for('static', filename='css/style.css'))
+    elif request.method == 'POST':
+        f = request.files['file']
+        image = Image.open(f)
+        image.save('static/img/user_image.png')
+        return render_template('load_photo_2.html', path=url_for('static', filename='img/user_image.png'),
+                               css=url_for('static', filename='css/style.css'))
 
 
 if __name__ == '__main__':
