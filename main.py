@@ -12,6 +12,7 @@ professions = ['инженер-исследователь', 'пилот', 'ст�
                'пилот дронов']
 users = ['Садовников Сергей', 'Серега Пират', 'Глазов Михаил', 'Зинатуллин Тимур']
 
+
 @app.route('/<title>')
 @app.route('/index/<title>')
 def index(title):
@@ -64,6 +65,23 @@ def login():
 @app.route('/distribution')
 def distribution():
     return render_template('distribution.html', users=users)
+
+
+@app.route('/table/<sex>/<int:age>')
+def table(sex, age):
+    if sex == 'female' and age >= 21:
+        color_img = url_for('static', filename='img/red.png')
+        age_img = url_for('static', filename='img/adult.png')
+    elif sex == 'female' and age <= 21:
+        color_img = url_for('static', filename='img/bright_red.png')
+        age_img = url_for('static', filename='img/child.jpg')
+    elif sex == 'male' and age >= 21:
+        color_img = url_for('static', filename='img/blue.png')
+        age_img = url_for('static', filename='img/adult.png')
+    elif sex == 'male' and age <= 21:
+        color_img = url_for('static', filename='img/bright_blue.png')
+        age_img = url_for('static', filename='img/child.jpg')
+    return render_template('table.html', color=color_img, age=age_img)
 
 
 if __name__ == '__main__':
