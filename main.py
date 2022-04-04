@@ -89,5 +89,10 @@ def choice(choice):
     return render_template('choice.html', choice=choice)
 
 
+@app.route('/results/<name>/<int:level>/<float:rating>')
+def results(name, level, rating):
+    return render_template('results.html', name=name, level=level, rating=rating)
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
